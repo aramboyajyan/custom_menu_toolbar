@@ -14,46 +14,39 @@
 function custom_menu_toolbar_admin_settings_form() {
   $form = array();
   $menus = menu_get_menus();
-  $roles = user_roles($membersonly = TRUE, $permission = 'manage w3b4 toolbar');
+  $roles = user_roles();
   $results = db_query("SELECT * FROM {custom_menu_toolbar_role_menus} ORDER BY weight ASC");
 
   // Add the "no menu" option to the list.
-  $menus = array_merge(array(CUSTOM_MENU_TOOLBAR_NO_MENU => t('- No toolbar -')), $menus);
+  $menus = array_merge(array('_none' => t('- No toolbar -')), $menus);
 
-  if (count($roles)) {
-    $form['menus']['#tree'] = TRUE;
-    foreach ($results as $result) {
-      $role = user_role_load($result->rid);
-      $form['menus'][$result->rid] = array(
-        'name' => array(
-          '#markup' => filter_xss_admin($role->name),
-        ),
-        'menu' => array(
-          '#type' => 'select',
-          '#options' => $menus,
-          '#default_value' => $result->menu_name,
-        ),
-        'weight' => array(
-          '#type' => 'weight',
-          '#title' => t('Weight'),
-          '#default_value' => $result->weight,
-          '#delta' => 10,
-          '#title_display' => 'invisible',
-        ),
-      );
-    }
-
-    $form['actions'] = array('#type' => 'actions');
-    $form['actions']['submit'] = array(
-      '#type' => 'submit',
-      '#value' => t('Save Changes'),
+  $form['menus']['#tree'] = TRUE;
+  foreach ($results as $result) {
+    $role = user_role_load($result->rid);
+    $form['menus'][$result->rid] = array(
+      'name' => array(
+        '#markup' => filter_xss_admin($role->name),
+      ),
+      'menu' => array(
+        '#type' => 'select',
+        '#options' => $menus,
+        '#default_value' => $result->menu_name,
+      ),
+      'weight' => array(
+        '#type' => 'weight',
+        '#title' => t('Weight'),
+        '#default_value' => $result->weight,
+        '#delta' => 10,
+        '#title_display' => 'invisible',
+      ),
     );
   }
-  else {
-    drupal_set_message(t('There are no user roles that have access to the W3b4 Toolbar module. Please <a href="@link">configure that</a> and then come back to this page to select which menus should be displayed for which role.', array(
-      '@link' => url('admin/people/permissions', array('query' => array('destination' => current_path()))),
-    )), 'notice');
-  }
+
+  $form['actions'] = array('#type' => 'actions');
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save Changes'),
+  );
 
   return $form;
 }

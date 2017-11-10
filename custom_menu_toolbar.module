@@ -13,7 +13,6 @@ require_once dirname(__FILE__) . '/custom_menu_toolbar.helpers.inc';
 /**
  * Constants.
  */
-define('CUSTOM_MENU_TOOLBAR_NO_MENU', '_none');
 define('CUSTOM_MENU_TOOLBAR_ROLE_ACCESS_TOOLBAR', 'access custom menu toolbar');
 define('CUSTOM_MENU_TOOLBAR_ROLE_MANAGE_TOOLBAR', 'manage custom menu toolbar');
 
@@ -23,7 +22,7 @@ define('CUSTOM_MENU_TOOLBAR_ROLE_MANAGE_TOOLBAR', 'manage custom menu toolbar');
 function custom_menu_toolbar_menu() {
   $items = array();
 
-  $items['admin/config/custom-menu-toolbar'] = array(
+  $items['admin/config/user-interface/settings'] = array(
     'title' => 'Custom Menu Toolbar',
     'description' => 'Configure the Custom Menu Toolbar.',
     'page callback' => 'drupal_get_form',

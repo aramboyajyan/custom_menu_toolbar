@@ -1,7 +1,7 @@
 
 /**
  * @file
- * W3b4 Toolbar JS.
+ * Custom Menu Toolbar JS.
  *
  * Created by: Topsitemakers
  * http://www.topsitemakers.com/

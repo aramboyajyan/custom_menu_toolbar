@@ -12,7 +12,6 @@
  * Implements hook_schema().
  */
 function custom_menu_toolbar_schema() {
-  drupal_module_load('module', 'custom_menu_toolbar');
   $schema['custom_menu_toolbar_role_menus'] = array(
     'description' => 'Stores information about user roles and corresponding toolbar menus.',
     'fields' => array(
@@ -31,7 +30,7 @@ function custom_menu_toolbar_schema() {
         'type' => 'varchar',
         'length' => 32,
         'not null' => TRUE,
-        'default' => CUSTOM_MENU_TOOLBAR_NO_MENU,
+        'default' => '_none',
         'description' => 'Foreign Key: Menu Name.',
       ),
       'weight' => array(
