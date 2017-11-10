@@ -1,0 +1,142 @@
+<?php
+
+/**
+ * @file
+ * Custom menu toolbar module.
+ *
+ * Created by: Topsitemakers
+ * http://www.topsitemakers.com/
+ */
+
+require_once dirname(__FILE__) . '/custom_menu_toolbar.helpers.inc';
+
+/**
+ * Constants.
+ */
+define('CUSTOM_MENU_TOOLBAR_NO_MENU', '_none');
+define('CUSTOM_MENU_TOOLBAR_ROLE_ACCESS_TOOLBAR', 'access custom menu toolbar');
+define('CUSTOM_MENU_TOOLBAR_ROLE_MANAGE_TOOLBAR', 'manage custom menu toolbar');
+
+/**
+ * Implements hook_menu().
+ */
+function custom_menu_toolbar_menu() {
+  $items = array();
+
+  $items['admin/config/custom-menu-toolbar'] = array(
+    'title' => 'Custom Menu Toolbar',
+    'description' => 'Configure the Custom Menu Toolbar.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custom_menu_toolbar_admin_settings_form'),
+    'access arguments' => array(CUSTOM_MENU_TOOLBAR_ROLE_MANAGE_TOOLBAR),
+    'file' => 'custom_menu_toolbar.admin.inc',
+    'weight' => 100,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function custom_menu_toolbar_permission() {
+  return array(
+    CUSTOM_MENU_TOOLBAR_ROLE_ACCESS_TOOLBAR => array(
+      'title' => 'Access Custom Menu Toolbar',
+    ),
+    CUSTOM_MENU_TOOLBAR_ROLE_MANAGE_TOOLBAR => array(
+      'title' => 'Manage Custom Menu Toolbar',
+    ),
+  );
+}
+
+/**
+ * Implements hook_page_alter().
+ */
+function custom_menu_toolbar_page_alter(&$page) {
+  global $user;
+  $user_roles = array_keys($user->roles);
+  $toolbar_menu = db_select('custom_menu_toolbar_role_menus', 'm')
+    ->fields('m')
+    ->condition('rid', $user_roles, 'IN')
+    ->orderBy('weight', 'DESC')
+    ->range(0, 1)
+    ->execute()
+    ->fetchObject();
+
+  if ($toolbar_menu && user_access(CUSTOM_MENU_TOOLBAR_ROLE_ACCESS_TOOLBAR)) {
+    $path = drupal_get_path('module', 'custom_menu_toolbar');
+    // Add our CSS.
+    drupal_add_css($path . '/custom_menu_toolbar.css');
+    // Add our JS.
+    drupal_add_js($path . '/custom_menu_toolbar.js');
+    // Render the menu.
+    $page['page_top']['custom_menu_toolbar'] = array(
+      '#prefix' => '<div id="custom-menu-toolbar" class="user-role-' . $toolbar_menu->rid . '">',
+      'content' => menu_tree($toolbar_menu->menu_name),
+      '#suffix' => '</div>',
+    );
+  }
+}
+
+/**
+ * Implements hook_user_role_insert().
+ */
+function custom_menu_toolbar_user_role_insert($role) {
+  db_insert('custom_menu_toolbar_role_menus')
+    ->fields(array('rid' => $role->rid))
+    ->execute();
+}
+
+/**
+ * Implements hook_user_role_delete().
+ */
+function custom_menu_toolbar_user_role_delete($role) {
+  db_delete('custom_menu_toolbar_role_menus')
+    ->condition('rid', $role->rid)
+    ->execute();
+}
+
+/**
+ * Implements hook_theme().
+ */
+function custom_menu_toolbar_theme() {
+  return array(
+    'custom_menu_toolbar_admin_settings_form' => array(
+      'render element' => 'form',
+      'file' => 'custom_menu_toolbar.admin.inc',
+    ),
+  );
+}
+
+/**
+ * Theme function for the custom_menu_toolbar_admin_settings_form() form.
+ */
+function theme_custom_menu_toolbar_admin_settings_form($variables) {
+  $form = $variables['form'];
+
+  $rows = array();
+  foreach (element_children($form['menus']) as $rid) {
+    $form['menus'][$rid]['weight']['#attributes']['class'] = array('role-menu-weight');
+    $rows[] = array(
+      'data' => array(
+        drupal_render($form['menus'][$rid]['name']),
+        drupal_render($form['menus'][$rid]['menu']),
+        drupal_render($form['menus'][$rid]['weight']),
+      ),
+      'class' => array('draggable'),
+    );
+  }
+
+  $header = array(t('Role'), t('Menu'), t('Weight'));
+  $table_id = 'role-menus-table';
+  $output = theme('table', array(
+    'header' => $header,
+    'rows' => $rows,
+    'attributes' => array('id' => $table_id),
+  ));
+  $output .= drupal_render_children($form);
+  drupal_add_tabledrag($table_id, 'order', 'sibling', 'role-menu-weight');
+
+  return $output;
+}
