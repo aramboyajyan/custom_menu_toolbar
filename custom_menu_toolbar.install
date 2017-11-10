@@ -51,9 +51,14 @@ function custom_menu_toolbar_schema() {
  */
 function custom_menu_toolbar_install() {
   $roles = user_roles();
+  $count = 1;
   foreach ($roles as $rid => $role_name) {
     db_insert('custom_menu_toolbar_role_menus')
-      ->fields(array('rid' => $rid))
+      ->fields(array(
+        'rid' => $rid,
+        'weight' => $count,
+      ))
       ->execute();
+    $count++;
   }
 }
