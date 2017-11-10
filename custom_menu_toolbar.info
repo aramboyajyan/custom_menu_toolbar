@@ -6,9 +6,9 @@
 ; ------------------------------------------------------------------------------
 ; Custom created module for a sample website.
 ; ------------------------------------------------------------------------------
-name = W3b4 Toolbar
-description = Provides custom W3b4 toolbar.
-package = Custom
+name = Custom Menu Toolbar
+description = Custom Menu Toolbar.
+package = Administration
 core = 7.x
 version = 7.x-1.0
 
