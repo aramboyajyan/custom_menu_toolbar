@@ -50,20 +50,22 @@ function custom_menu_toolbar_permission() {
 }
 
 /**
+ * Implements hook_preprocess_html().
+ */
+function custom_menu_toolbar_preprocess_html(&$vars) {
+  $toolbar_menu = _custom_menu_toolbar_get_menu_for_current_user();
+  if ($toolbar_menu) {
+    // Add an extra class to the body element.
+    $vars['classes_array'][] = 'custom-menu-toolbar';
+  }
+}
+
+/**
  * Implements hook_page_alter().
  */
 function custom_menu_toolbar_page_alter(&$page) {
-  global $user;
-  $user_roles = array_keys($user->roles);
-  $toolbar_menu = db_select('custom_menu_toolbar_role_menus', 'm')
-    ->fields('m')
-    ->condition('rid', $user_roles, 'IN')
-    ->orderBy('weight', 'DESC')
-    ->range(0, 1)
-    ->execute()
-    ->fetchObject();
-
-  if ($toolbar_menu && user_access(CUSTOM_MENU_TOOLBAR_ROLE_ACCESS_TOOLBAR)) {
+  $toolbar_menu = _custom_menu_toolbar_get_menu_for_current_user();
+  if ($toolbar_menu) {
     $path = drupal_get_path('module', 'custom_menu_toolbar');
     // Add our CSS.
     drupal_add_css($path . '/custom_menu_toolbar.css');
