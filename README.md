@@ -1,4 +1,4 @@
-# CUSTOM MENU TOOLBAR
+#CUSTOM MENU TOOLBAR
 
 This module allows you to use custom menus as administrative toolbars for different roles.
 
@@ -11,7 +11,7 @@ There are two main issues with the standard solutions such as the core "Toolbar"
 
 This module solves both of these issues and gives you full freedom to name, order and create any links people working on your site need.
 
-## Installation
+##Installation
 
 1. Install the module.
 2. Create a new menu that you want to use as a toolbar.
