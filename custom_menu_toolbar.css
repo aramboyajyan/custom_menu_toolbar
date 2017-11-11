@@ -7,4 +7,63 @@
  * http://www.topsitemakers.com/
  */
 
-
+body.custom-menu-toolbar {
+  padding-top: 34px;
+}
+#custom-menu-toolbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  color: #FFF;
+  font-family: Arial;
+  z-index: 999;
+}
+#custom-menu-toolbar,
+#custom-menu-toolbar li {
+  background: #888;
+}
+#custom-menu-toolbar a {
+  float: left;
+  line-height: 35px;
+  padding: 0 8px;
+}
+#custom-menu-toolbar li:hover {
+  background: #777;
+}
+#custom-menu-toolbar a,
+#custom-menu-toolbar a:focus,
+#custom-menu-toolbar a:hover,
+#custom-menu-toolbar a:active,
+#custom-menu-toolbar a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+#custom-menu-toolbar ul,
+#custom-menu-toolbar li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  float: left;
+  width: 100%;
+}
+#custom-menu-toolbar li:hover ul {
+  display: block;
+}
+#custom-menu-toolbar > ul {
+  width: 100%;
+}
+#custom-menu-toolbar > ul > li {
+  width: auto;
+}
+#custom-menu-toolbar li ul {
+  display: none;
+  width: 15em;
+  position: absolute;
+}
+#custom-menu-toolbar > ul > li > ul {
+  top: 34px;
+}
+#custom-menu-toolbar > ul > li > ul > li {
+}
