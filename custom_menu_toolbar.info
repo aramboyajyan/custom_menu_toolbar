@@ -10,7 +10,6 @@ name = Custom Menu Toolbar
 description = Custom Menu Toolbar.
 package = Administration
 core = 7.x
-version = 7.x-1.0
 
 ; ------------------------------------------------------------------------------
 ; Scripts
