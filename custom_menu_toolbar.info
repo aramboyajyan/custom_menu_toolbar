@@ -7,7 +7,7 @@
 ; Custom created module for a sample website.
 ; ------------------------------------------------------------------------------
 name = Custom Menu Toolbar
-description = Custom Menu Toolbar.
+description = This module allows you to use custom menus as administrative toolbars for different roles.
 package = Administration
 core = 7.x
 
