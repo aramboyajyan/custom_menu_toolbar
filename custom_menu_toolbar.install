@@ -62,3 +62,13 @@ function custom_menu_toolbar_install() {
     $count++;
   }
 }
+
+/**
+ * Implements hook_uninstall().
+ */
+function custom_menu_toolbar_uninstall() {
+  // Remove our variables.
+  variable_del('custom_menu_toolbar_var_color_text');
+  variable_del('custom_menu_toolbar_var_color_bg');
+  variable_del('custom_menu_toolbar_var_color_bg_active');
+}
