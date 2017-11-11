@@ -93,5 +93,16 @@ function custom_menu_toolbar_admin_settings_form() {
     '#default_value' => variable_get('custom_menu_toolbar_var_color_bg_active', CUSTOM_MENU_TOOLBAR_DEFAULT_COLOR_BG_ACTIVE),
   );
 
+  $form['other'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Other settings'),
+  );
+  $form['other']['custom_menu_toolbar_var_other_toggle_text'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Mobile toggle text'),
+    '#description' => t('Text displayed when the menu is collapsed for mobile devices.'),
+    '#default_value' => variable_get('custom_menu_toolbar_var_other_toggle_text', CUSTOM_MENU_TOOLBAR_DEFAULT_TOGGLE_TEXT),
+  );
+
   return system_settings_form($form);
 }

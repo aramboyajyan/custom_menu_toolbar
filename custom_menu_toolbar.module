@@ -18,6 +18,7 @@ define('CUSTOM_MENU_TOOLBAR_PERMISSION_MANAGE_TOOLBAR', 'manage custom menu tool
 define('CUSTOM_MENU_TOOLBAR_DEFAULT_COLOR_TEXT', '#FFF');
 define('CUSTOM_MENU_TOOLBAR_DEFAULT_COLOR_BG', '#888');
 define('CUSTOM_MENU_TOOLBAR_DEFAULT_COLOR_BG_ACTIVE', '#777');
+define('CUSTOM_MENU_TOOLBAR_DEFAULT_TOGGLE_TEXT', 'Admin Menu');
 
 /**
  * Implements hook_menu().
@@ -104,8 +105,11 @@ function custom_menu_toolbar_page_alter(&$page) {
     $styles = array();
     $styles[] = '#custom-menu-toolbar {color: ' . filter_xss($color_text) . '}';
     $styles[] = '#custom-menu-toolbar, #custom-menu-toolbar li {background: ' . filter_xss($color_bg) . '}';
-    $styles[] = '#custom-menu-toolbar li:hover {background: ' . filter_xss($color_bg_active) . '}';
+    $styles[] = '@media (min-width: 980px) {#custom-menu-toolbar li:hover {background: ' . filter_xss($color_bg_active) . '}}';
     $inline_css = implode(PHP_EOL, $styles);
+    // Prepare the text for toggle.
+    $toggle_text_raw = variable_get('custom_menu_toolbar_var_other_toggle_text', CUSTOM_MENU_TOOLBAR_DEFAULT_TOGGLE_TEXT);
+    $toggle_text = filter_xss($toggle_text_raw);
     // Add our CSS.
     drupal_add_css($path . '/custom_menu_toolbar.css');
     drupal_add_css($inline_css, array('type' => 'inline'));
@@ -114,8 +118,15 @@ function custom_menu_toolbar_page_alter(&$page) {
     // Render the menu.
     $page['page_top']['custom_menu_toolbar'] = array(
       '#prefix' => '<div id="custom-menu-toolbar" class="user-role-' . $toolbar_menu->rid . '">',
-      'content' => menu_tree($toolbar_menu->menu_name),
       '#suffix' => '</div>',
+    );
+    $page['page_top']['custom_menu_toolbar']['toggle'] = array(
+      '#prefix' => '<a id="custom-menu-toolbar-toggle">',
+      '#markup' => '<span id="custom-menu-toolbar-toggle-stripes"><i></i><i></i><i></i></span><span id="custom-menu-toolbar-toggle-text">' . $toggle_text . '</span>',
+      '#suffix' => '</a>',
+    );
+    $page['page_top']['custom_menu_toolbar']['menu'] = array(
+      'content' => menu_tree($toolbar_menu->menu_name),
     );
   }
 }

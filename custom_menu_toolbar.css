@@ -7,14 +7,14 @@
  * http://www.topsitemakers.com/
  */
 
+body.custom-menu-toolbar {
+  padding-top: 34px;
+}
 #custom-menu-toolbar,
 #custom-menu-toolbar * {
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
-}
-body.custom-menu-toolbar {
-  padding-top: 34px;
 }
 #custom-menu-toolbar {
   position: absolute;
@@ -55,31 +55,90 @@ body.custom-menu-toolbar {
 #custom-menu-toolbar li.active-trail {
   border: 0;
 }
-#custom-menu-toolbar li:hover > ul {
-  display: block;
+#custom-menu-toolbar li li.expanded > a:after {
+  font-family: Verdana;
+  font-size: 16px;
+  content: "›";
 }
 #custom-menu-toolbar > ul {
   width: 100%;
 }
-#custom-menu-toolbar > ul > li {
+@media (min-width: 980px) {
+  #custom-menu-toolbar li:hover > ul {
+    display: block;
+  }
+  #custom-menu-toolbar > ul > li {
+    width: auto;
+  }
+  #custom-menu-toolbar li ul {
+    display: none;
+    width: 15em;
+    position: absolute;
+  }
+  #custom-menu-toolbar > ul > li > ul {
+    top: 34px;
+  }
+  #custom-menu-toolbar li ul li ul {
+    position: absolute;
+    left: 15em;
+    top: 1em;
+  }
+  #custom-menu-toolbar li li.expanded > a:after {
+    float: right;
+  }
+}
+/* Mobile toggle. */
+#custom-menu-toolbar-toggle {
   width: auto;
-}
-#custom-menu-toolbar li ul {
   display: none;
-  width: 15em;
-  position: absolute;
 }
-#custom-menu-toolbar > ul > li > ul {
-  top: 34px;
+@media (max-width: 979px) {
+  #custom-menu-toolbar a {
+    line-height: 30px;
+  }
+  #custom-menu-toolbar:not(.open) > .menu {
+    display: none;
+  }
+  #custom-menu-toolbar-toggle {
+    display: block;
+    cursor: pointer;
+  }
+  #custom-menu-toolbar-toggle-text,
+  #custom-menu-toolbar-toggle-stripes {
+    width: auto;
+    display: block;
+    float: right;
+  }
+  #custom-menu-toolbar-toggle-text {
+    font-size: 16px;
+    line-height: 34px;
+  }
+  #custom-menu-toolbar-toggle-stripes {
+    width: 20px;
+    margin: 9px 0 0 10px;
+  }
+  #custom-menu-toolbar-toggle-stripes i {
+    float: left;
+    width: 100%;
+    height: 3px;
+    background: #FFF;
+    margin: 0 0 3px 0;
+  }
+  #custom-menu-toolbar ul ul {
+    padding-left: 1em;
+  }
+  #custom-menu-toolbar ul:not(.open) ul {
+    display: none;
+  }
+  #custom-menu-toolbar li.expanded > a:after {
+    padding-left: 10px;
+  }
 }
-#custom-menu-toolbar li ul li ul {
-  position: absolute;
-  left: 15em;
-  top: 1em;
-}
-#custom-menu-toolbar li li.expanded > a:after {
-  content: "›";
-  float: right;
-  font-family: Verdana;
-  font-size: 16px;
+@media print {
+  #custom-menu-toolbar {
+    display: none!important;
+  }
+  body.custom-menu-toolbar {
+    margin-top: 0!important;
+  }
 }
