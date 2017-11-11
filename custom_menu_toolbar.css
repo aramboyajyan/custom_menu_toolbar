@@ -69,3 +69,9 @@ body.custom-menu-toolbar {
   left: 15em;
   top: 1em;
 }
+#custom-menu-toolbar li li.expanded > a:after {
+  content: "›";
+  float: right;
+  font-family: Verdana;
+  font-size: 16px;
+}
