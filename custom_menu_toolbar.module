@@ -22,7 +22,15 @@ define('CUSTOM_MENU_TOOLBAR_ROLE_MANAGE_TOOLBAR', 'manage custom menu toolbar');
 function custom_menu_toolbar_menu() {
   $items = array();
 
-  $items['admin/config/user-interface/settings'] = array(
+  $items['admin/config/administration'] = array(
+    'title' => 'Administration',
+    'description' => 'Administration tools.',
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+  $items['admin/config/administration/custom-menu-toolbar'] = array(
     'title' => 'Custom Menu Toolbar',
     'description' => 'Configure the Custom Menu Toolbar.',
     'page callback' => 'drupal_get_form',

@@ -36,4 +36,4 @@ version = 7.x-1.0
 ; Other
 ; ------------------------------------------------------------------------------
 ; Configuration URL
-; configure = admin/config/sample
+; configure = admin/config/administration/custom-menu-toolbar
