@@ -16,8 +16,10 @@
           $('body').toggleClass('custom-menu-toolbar-open');
         });
         $('#custom-menu-toolbar li.expanded > a').click(function() {
-          $(this).closest('ul').toggleClass('open');
-          return false;
+          if ($(window).width() < 979) {
+            $(this).closest('ul').toggleClass('open');
+            return false;
+          }
         });
       });
 
