@@ -21,7 +21,9 @@ body.custom-menu-toolbar {
   top: 0;
   left: 0;
   right: 0;
-  font-family: Arial;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: normal;
   z-index: 999;
 }
 #custom-menu-toolbar a {
@@ -46,6 +48,11 @@ body.custom-menu-toolbar {
   position: relative;
   float: left;
   width: 100%;
+}
+#custom-menu-toolbar a.active,
+#custom-menu-toolbar a.active-trail,
+#custom-menu-toolbar li.active-trail {
+  border: 0;
 }
 #custom-menu-toolbar li:hover > ul {
   display: block;
