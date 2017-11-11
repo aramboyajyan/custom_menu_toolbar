@@ -15,21 +15,13 @@ body.custom-menu-toolbar {
   top: 0;
   left: 0;
   right: 0;
-  color: #FFF;
   font-family: Arial;
   z-index: 999;
-}
-#custom-menu-toolbar,
-#custom-menu-toolbar li {
-  background: #888;
 }
 #custom-menu-toolbar a {
   float: left;
   line-height: 35px;
   padding: 0 8px;
-}
-#custom-menu-toolbar li:hover {
-  background: #777;
 }
 #custom-menu-toolbar a,
 #custom-menu-toolbar a:focus,

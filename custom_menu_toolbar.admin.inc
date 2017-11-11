@@ -11,7 +11,7 @@
 /**
  * Main configuration form for administrators.
  */
-function custom_menu_toolbar_admin_settings_form() {
+function custom_menu_toolbar_menu_settings_form() {
   $form = array();
   $menus = menu_get_menus();
   $roles = user_roles();
@@ -52,9 +52,9 @@ function custom_menu_toolbar_admin_settings_form() {
 }
 
 /**
- * Submit handler for the custom_menu_toolbar_admin_settings_form().
+ * Submit handler for the custom_menu_toolbar_menu_settings_form().
  */
-function custom_menu_toolbar_admin_settings_form_submit($form, &$form_state) {
+function custom_menu_toolbar_menu_settings_form_submit($form, &$form_state) {
   foreach ($form_state['values']['menus'] as $rid => $data) {
     db_update('custom_menu_toolbar_role_menus')
       ->condition('rid', $rid)
@@ -65,4 +65,33 @@ function custom_menu_toolbar_admin_settings_form_submit($form, &$form_state) {
       ->execute();
   }
   drupal_set_message(t('Changes have been saved successfully.'));
+}
+
+/**
+ * Main configuration form for administrators.
+ */
+function custom_menu_toolbar_admin_settings_form() {
+  $form = array();
+
+  $form['colors'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Colors'),
+  );
+  $form['colors']['custom_menu_toolbar_var_color_text'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Text'),
+    '#default_value' => variable_get('custom_menu_toolbar_var_color_text', '#FFF'),
+  );
+  $form['colors']['custom_menu_toolbar_var_color_bg'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Background'),
+    '#default_value' => variable_get('custom_menu_toolbar_var_color_bg', '#888'),
+  );
+  $form['colors']['custom_menu_toolbar_var_color_bg_active'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Active / hover background'),
+    '#default_value' => variable_get('custom_menu_toolbar_var_color_bg_active', '#777'),
+  );
+
+  return system_settings_form($form);
 }
