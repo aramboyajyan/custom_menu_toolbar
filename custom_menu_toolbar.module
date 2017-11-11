@@ -124,7 +124,7 @@ function custom_menu_toolbar_page_alter(&$page) {
  * Implements hook_user_role_insert().
  */
 function custom_menu_toolbar_user_role_insert($role) {
-  db_insert('CUSTOM_MENU_TOOLBAR_PERMISSION_menus')
+  db_insert('custom_menu_toolbar_role_menus')
     ->fields(array('rid' => $role->rid))
     ->execute();
 }
@@ -133,7 +133,7 @@ function custom_menu_toolbar_user_role_insert($role) {
  * Implements hook_user_role_delete().
  */
 function custom_menu_toolbar_user_role_delete($role) {
-  db_delete('CUSTOM_MENU_TOOLBAR_PERMISSION_menus')
+  db_delete('custom_menu_toolbar_role_menus')
     ->condition('rid', $role->rid)
     ->execute();
 }

@@ -18,7 +18,7 @@ function _custom_menu_toolbar_get_menu_for_current_user() {
   global $user;
   $user_roles = array_keys($user->roles);
 
-  $menu = db_select('CUSTOM_MENU_TOOLBAR_PERMISSION_menus', 'm')
+  $menu = db_select('custom_menu_toolbar_role_menus', 'm')
     ->fields('m')
     ->condition('rid', $user_roles, 'IN')
     ->orderBy('weight', 'DESC')
