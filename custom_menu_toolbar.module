@@ -13,8 +13,8 @@ require_once dirname(__FILE__) . '/custom_menu_toolbar.helpers.inc';
 /**
  * Constants.
  */
-define('CUSTOM_MENU_TOOLBAR_ROLE_ACCESS_TOOLBAR', 'access custom menu toolbar');
-define('CUSTOM_MENU_TOOLBAR_ROLE_MANAGE_TOOLBAR', 'manage custom menu toolbar');
+define('CUSTOM_MENU_TOOLBAR_PERMISSION_ACCESS_TOOLBAR', 'access custom menu toolbar');
+define('CUSTOM_MENU_TOOLBAR_PERMISSION_MANAGE_TOOLBAR', 'manage custom menu toolbar');
 define('CUSTOM_MENU_TOOLBAR_DEFAULT_COLOR_TEXT', '#FFF');
 define('CUSTOM_MENU_TOOLBAR_DEFAULT_COLOR_BG', '#888');
 define('CUSTOM_MENU_TOOLBAR_DEFAULT_COLOR_BG_ACTIVE', '#777');
@@ -29,7 +29,7 @@ function custom_menu_toolbar_menu() {
     'title' => 'Administration',
     'description' => 'Administration tools.',
     'page callback' => 'system_admin_menu_block_page',
-    'access arguments' => array('access administration pages'),
+    'access arguments' => array(CUSTOM_MENU_TOOLBAR_PERMISSION_MANAGE_TOOLBAR),
     'file' => 'system.admin.inc',
     'file path' => drupal_get_path('module', 'system'),
   );
@@ -38,7 +38,7 @@ function custom_menu_toolbar_menu() {
     'description' => 'Select menus that should be used as toolbars for different user roles and change general settings of the Custom Menu Toolbar module.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('custom_menu_toolbar_menu_settings_form'),
-    'access arguments' => array(CUSTOM_MENU_TOOLBAR_ROLE_MANAGE_TOOLBAR),
+    'access arguments' => array(CUSTOM_MENU_TOOLBAR_PERMISSION_MANAGE_TOOLBAR),
     'file' => 'custom_menu_toolbar.admin.inc',
     'weight' => 100,
   );
@@ -47,7 +47,7 @@ function custom_menu_toolbar_menu() {
     'description' => 'Select menus that should be used as toolbars for different user roles.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('custom_menu_toolbar_menu_settings_form'),
-    'access arguments' => array(CUSTOM_MENU_TOOLBAR_ROLE_MANAGE_TOOLBAR),
+    'access arguments' => array(CUSTOM_MENU_TOOLBAR_PERMISSION_MANAGE_TOOLBAR),
     'file' => 'custom_menu_toolbar.admin.inc',
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
@@ -56,7 +56,7 @@ function custom_menu_toolbar_menu() {
     'description' => 'Change general settings of the Custom Menu Toolbar module.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('custom_menu_toolbar_admin_settings_form'),
-    'access arguments' => array(CUSTOM_MENU_TOOLBAR_ROLE_MANAGE_TOOLBAR),
+    'access arguments' => array(CUSTOM_MENU_TOOLBAR_PERMISSION_MANAGE_TOOLBAR),
     'file' => 'custom_menu_toolbar.admin.inc',
     'weight' => 1,
     'type' => MENU_LOCAL_TASK,
@@ -70,10 +70,10 @@ function custom_menu_toolbar_menu() {
  */
 function custom_menu_toolbar_permission() {
   return array(
-    CUSTOM_MENU_TOOLBAR_ROLE_ACCESS_TOOLBAR => array(
+    CUSTOM_MENU_TOOLBAR_PERMISSION_ACCESS_TOOLBAR => array(
       'title' => 'Access Custom Menu Toolbar',
     ),
-    CUSTOM_MENU_TOOLBAR_ROLE_MANAGE_TOOLBAR => array(
+    CUSTOM_MENU_TOOLBAR_PERMISSION_MANAGE_TOOLBAR => array(
       'title' => 'Manage Custom Menu Toolbar',
     ),
   );
@@ -124,7 +124,7 @@ function custom_menu_toolbar_page_alter(&$page) {
  * Implements hook_user_role_insert().
  */
 function custom_menu_toolbar_user_role_insert($role) {
-  db_insert('custom_menu_toolbar_role_menus')
+  db_insert('CUSTOM_MENU_TOOLBAR_PERMISSION_menus')
     ->fields(array('rid' => $role->rid))
     ->execute();
 }
@@ -133,7 +133,7 @@ function custom_menu_toolbar_user_role_insert($role) {
  * Implements hook_user_role_delete().
  */
 function custom_menu_toolbar_user_role_delete($role) {
-  db_delete('custom_menu_toolbar_role_menus')
+  db_delete('CUSTOM_MENU_TOOLBAR_PERMISSION_menus')
     ->condition('rid', $role->rid)
     ->execute();
 }

@@ -12,7 +12,7 @@
  * Implements hook_schema().
  */
 function custom_menu_toolbar_schema() {
-  $schema['custom_menu_toolbar_role_menus'] = array(
+  $schema['CUSTOM_MENU_TOOLBAR_PERMISSION_menus'] = array(
     'description' => 'Stores information about user roles and corresponding toolbar menus.',
     'fields' => array(
       'id' => array(
@@ -53,7 +53,7 @@ function custom_menu_toolbar_install() {
   $roles = user_roles();
   $count = 1;
   foreach ($roles as $rid => $role_name) {
-    db_insert('custom_menu_toolbar_role_menus')
+    db_insert('CUSTOM_MENU_TOOLBAR_PERMISSION_menus')
       ->fields(array(
         'rid' => $rid,
         'weight' => $count,
