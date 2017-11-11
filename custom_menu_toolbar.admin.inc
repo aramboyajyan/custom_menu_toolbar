@@ -80,17 +80,17 @@ function custom_menu_toolbar_admin_settings_form() {
   $form['colors']['custom_menu_toolbar_var_color_text'] = array(
     '#type' => 'textfield',
     '#title' => t('Text'),
-    '#default_value' => variable_get('custom_menu_toolbar_var_color_text', '#FFF'),
+    '#default_value' => variable_get('custom_menu_toolbar_var_color_text', CUSTOM_MENU_TOOLBAR_DEFAULT_COLOR_TEXT),
   );
   $form['colors']['custom_menu_toolbar_var_color_bg'] = array(
     '#type' => 'textfield',
     '#title' => t('Background'),
-    '#default_value' => variable_get('custom_menu_toolbar_var_color_bg', '#888'),
+    '#default_value' => variable_get('custom_menu_toolbar_var_color_bg', CUSTOM_MENU_TOOLBAR_DEFAULT_COLOR_BG),
   );
   $form['colors']['custom_menu_toolbar_var_color_bg_active'] = array(
     '#type' => 'textfield',
     '#title' => t('Active / hover background'),
-    '#default_value' => variable_get('custom_menu_toolbar_var_color_bg_active', '#777'),
+    '#default_value' => variable_get('custom_menu_toolbar_var_color_bg_active', CUSTOM_MENU_TOOLBAR_DEFAULT_COLOR_BG_ACTIVE),
   );
 
   return system_settings_form($form);

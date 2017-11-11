@@ -15,6 +15,9 @@ require_once dirname(__FILE__) . '/custom_menu_toolbar.helpers.inc';
  */
 define('CUSTOM_MENU_TOOLBAR_ROLE_ACCESS_TOOLBAR', 'access custom menu toolbar');
 define('CUSTOM_MENU_TOOLBAR_ROLE_MANAGE_TOOLBAR', 'manage custom menu toolbar');
+define('CUSTOM_MENU_TOOLBAR_DEFAULT_COLOR_TEXT', '#FFF');
+define('CUSTOM_MENU_TOOLBAR_DEFAULT_COLOR_BG', '#888');
+define('CUSTOM_MENU_TOOLBAR_DEFAULT_COLOR_BG_ACTIVE', '#777');
 
 /**
  * Implements hook_menu().
@@ -95,9 +98,9 @@ function custom_menu_toolbar_page_alter(&$page) {
   if ($toolbar_menu) {
     $path = drupal_get_path('module', 'custom_menu_toolbar');
     // Configurable styles.
-    $color_text = variable_get('custom_menu_toolbar_var_color_text', '#FFF');
-    $color_bg = variable_get('custom_menu_toolbar_var_color_bg', '#888');
-    $color_bg_active = variable_get('custom_menu_toolbar_var_color_bg_active', '#777');
+    $color_text = variable_get('custom_menu_toolbar_var_color_text', CUSTOM_MENU_TOOLBAR_DEFAULT_COLOR_TEXT);
+    $color_bg = variable_get('custom_menu_toolbar_var_color_bg', CUSTOM_MENU_TOOLBAR_DEFAULT_COLOR_BG);
+    $color_bg_active = variable_get('custom_menu_toolbar_var_color_bg_active', CUSTOM_MENU_TOOLBAR_DEFAULT_COLOR_BG_ACTIVE);
     $styles = array();
     $styles[] = '#custom-menu-toolbar {color: ' . filter_xss($color_text) . '}';
     $styles[] = '#custom-menu-toolbar, #custom-menu-toolbar li {background: ' . filter_xss($color_bg) . '}';
