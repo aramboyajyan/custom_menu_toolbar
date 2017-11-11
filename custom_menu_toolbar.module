@@ -16,8 +16,8 @@ require_once dirname(__FILE__) . '/custom_menu_toolbar.helpers.inc';
 define('CUSTOM_MENU_TOOLBAR_PERMISSION_ACCESS_TOOLBAR', 'access custom menu toolbar');
 define('CUSTOM_MENU_TOOLBAR_PERMISSION_MANAGE_TOOLBAR', 'manage custom menu toolbar');
 define('CUSTOM_MENU_TOOLBAR_DEFAULT_COLOR_TEXT', '#FFF');
-define('CUSTOM_MENU_TOOLBAR_DEFAULT_COLOR_BG', '#888');
-define('CUSTOM_MENU_TOOLBAR_DEFAULT_COLOR_BG_ACTIVE', '#777');
+define('CUSTOM_MENU_TOOLBAR_DEFAULT_COLOR_BG', '#111');
+define('CUSTOM_MENU_TOOLBAR_DEFAULT_COLOR_BG_ACTIVE', '#0678be');
 define('CUSTOM_MENU_TOOLBAR_DEFAULT_TOGGLE_TEXT', 'Admin Menu');
 
 /**
